@@ -8,13 +8,7 @@ using std::endl;
 
 constexpr static const char * const address{"0.0.0.0"};
 constexpr const static uint16_t cores{8};
-constexpr const static uint16_t port{
-#ifdef PORT
-    PORT
-#else
-    8080
-#endif
-};
+constexpr const static uint16_t port{8080};
 
 static inline const char* resp(
     const std::string& user,
