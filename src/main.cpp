@@ -39,8 +39,6 @@ int main(int, char*[], char* env[]) noexcept {
       cout << "Defaulting to port " << port << endl;
     }
 
-
-
     {
         crow::SimpleApp app{};
         CROW_ROUTE(app, "/<string>/<string>/<string>/<string>")(resp);
