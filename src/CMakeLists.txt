@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.10)
 project (brotli-template)
 
 if(UNIX AND NOT APPLE)
@@ -16,6 +16,5 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O6")
 
 add_executable(server main.cpp)
-target_link_libraries(server ${Boost_LIBRARIES})
-target_link_libraries(server ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(server boost_system)
 target_link_libraries(server curl)
