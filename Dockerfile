@@ -12,3 +12,5 @@ WORKDIR crow
 
 RUN cmake .
 RUN make
+
+ENTRYPOINT ["./src/server"]
