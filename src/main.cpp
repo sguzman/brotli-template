@@ -23,8 +23,8 @@ int main(int, char*[], char* env[]) noexcept {
     for (char** e{env}; *e != nullptr; ++e) {
       char* str{*e};
       if (str[0] == 'P' && str[1] == 'O' && str[2] == 'R' && str[3] == 'T' && str[4] == '=') {
-        for (uint8_t i{0}; str[i] != '\0'; ++i) {
-          port_str[i] = str[i];
+        for (uint8_t i{5}; str[i] != '\0'; ++i) {
+          port_str[i - 5] = str[i];
         }
 
         port = static_cast<unsigned short>(atoi(port_str));
