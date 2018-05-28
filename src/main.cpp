@@ -9,12 +9,27 @@ using std::endl;
 constexpr static const char * const address{"0.0.0.0"};
 constexpr const static unsigned short cores{8};
 
-static inline const char* resp(
+static inline const crow::response resp(
     const std::string& user,
     const std::string& repo,
     const std::string& branch,
     const std::string& file) noexcept {
-    return (user + repo + branch + file).c_str();
+  std::string url{"https://raw.githubusercontent.com/"};
+  {
+    url += user;
+    url += "/";
+    url += repo;
+    url += "/";
+    url += branch;
+    url += "/";
+    url += file;
+  }
+
+  auto& body = Curl::get(url);
+  crow::response response{crow::response(200, body)};
+  response.add_header("Content-Encoding", "br");
+
+  return response;
 }
 
 int main(int, char*[], char* env[]) noexcept {
