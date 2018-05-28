@@ -17,4 +17,5 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O6")
 
 add_executable(server main.cpp)
 target_link_libraries(server boost_system)
+target_link_libraries(server pthread)
 target_link_libraries(server curl)
