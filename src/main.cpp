@@ -7,8 +7,8 @@ using std::cerr;
 using std::endl;
 
 constexpr static const char * const address{"0.0.0.0"};
-constexpr const static unsigned short cores{8};
-constexpr const static unsigned short port{
+constexpr const static uint16_t cores{8};
+constexpr const static uint16_t port{
 #ifdef PORT
     PORT
 #else
