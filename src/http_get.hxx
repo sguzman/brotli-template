@@ -3,7 +3,7 @@
 #include <string>
 
 namespace Curl {
-  inline static const size_t callback(void* contents, const size_t size, const size_t nmemb, std::string* s) noexcept
+  inline static size_t callback(void* contents, const size_t size, const size_t nmemb, std::string* s) noexcept
   {
     const size_t newLength = size * nmemb;
     const size_t oldLength = s->size();
