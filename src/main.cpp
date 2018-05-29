@@ -13,6 +13,7 @@ static inline const crow::response resp(
     const std::string& user,
     const std::string& repo,
     const std::string& branch,
+    const std::string& folder,
     const std::string& file) noexcept {
   std::string url{"https://raw.githubusercontent.com/"};
   {
@@ -21,6 +22,8 @@ static inline const crow::response resp(
     url += repo;
     url += "/";
     url += branch;
+    url += "/";
+    url += folder;
     url += "/";
     url += file;
   }
@@ -56,7 +59,7 @@ int main(int, char*[], char* env[]) noexcept {
 
     {
         crow::SimpleApp app{};
-        CROW_ROUTE(app, "/<string>/<string>/<string>/<string>")(resp);
+        CROW_ROUTE(app, "/<string>/<string>/<string>/<string>/<string>")(resp);
 
         app
             .port(port)
