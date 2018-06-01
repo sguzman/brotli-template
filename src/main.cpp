@@ -30,13 +30,18 @@ static inline const crow::response resp(
 
   auto& body = Curl::get(url);
   crow::response response{crow::response(200, body)};
-  response.add_header("Content-Encoding", "br");
+  {
+    response.add_header("Content-Encoding", "br");
+    response.add_header("Access-Control-Allow-Origin", "*");
+    response.add_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  }
 
   return response;
 }
 
 int main(int, char*[], char* env[]) noexcept {
-    unsigned short port{};
+  unsigned short port{0};
+  {
     char port_str[5]{};
     for (char** e{env}; *e != nullptr; ++e) {
       char* str{*e};
@@ -51,23 +56,24 @@ int main(int, char*[], char* env[]) noexcept {
         break;
       }
     }
+  }
 
-    if (port_str[0] == '\0') {
-      port = 8080;
-      cout << "Defaulting to port " << port << endl;
-    }
+  if (port == 0) {
+    port = 8080;
+    cout << "Defaulting to port " << port << endl;
+  }
 
-    {
-        crow::SimpleApp app{};
-        CROW_ROUTE(app, "/<string>/<string>/<string>/<string>/<string>")(resp);
+  {
+      crow::SimpleApp app{};
+      CROW_ROUTE(app, "/<string>/<string>/<string>/<string>/<string>")(resp);
 
-        app
-            .port(port)
-            .bindaddr(address)
-            .concurrency(cores)
-            .multithreaded()
-            .run();
-    }
+      app
+          .port(port)
+          .bindaddr(address)
+          .concurrency(cores)
+          .multithreaded()
+          .run();
+  }
 
-    return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
